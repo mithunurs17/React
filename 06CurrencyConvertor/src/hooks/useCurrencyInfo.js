@@ -1,15 +1,36 @@
-import {useEffect, useState} from "react"
+import { useEffect, useState } from "react"
 
-
-function useCurrencyInfo(currency){
+function useCurrencyInfo(currency) {
     const [data, setData] = useState({})
+
     useEffect(() => {
-        fetch(`https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${currency}.json`)
-        .then((res) => res.json())
-        .then((res) => setData(res[currency]))
-        console.log(data);
+        let mounted = true
+        const url = `https://open.er-api.com/v6/latest/${currency}`
+
+        async function fetchRates() {
+            try {
+                const res = await fetch(url)
+                if (!res.ok) {
+                    console.error("Failed to fetch rates:", res.status, res.statusText)
+                    if (mounted) setData({})
+                    return
+                }
+                const json = await res.json()
+                // open.er-api returns rates under `rates`
+                if (mounted && json && json.rates) setData(json.rates)
+            } catch (err) {
+                console.error("Error fetching currency rates:", err)
+                if (mounted) setData({})
+            }
+        }
+
+        fetchRates()
+
+        return () => {
+            mounted = false
+        }
     }, [currency])
-    console.log(data);
+
     return data
 }
 

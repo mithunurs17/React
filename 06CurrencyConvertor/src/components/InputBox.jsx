@@ -26,7 +26,7 @@ function InputBox({
                     placeholder="Amount"
                     disabled={amountDisable}
                     value={amount}
-                    onChange={(e) => onAmountChange && onAmountChange(Number(e.target.value))}
+                    onChange={(e) => onAmountChange && onAmountChange(e.target.value === '' ? '' : Number(e.target.value))}
                 />
             </div>
             <div className="w-1/2 flex flex-wrap justify-end text-right">
@@ -37,13 +37,17 @@ function InputBox({
                     onChange={(e) => onCurrencyChange && onCurrencyChange(e.target.value)}
                     disabled={currencyDisable}
                 >
-                    
-                        {currencyOptions.map((currency) => (
+                    {currencyOptions.length === 0 ? (
+                        <option value="" disabled>
+                            Loading...
+                        </option>
+                    ) : (
+                        currencyOptions.map((currency) => (
                             <option key={currency} value={currency}>
-                            {currency}
+                                {currency}
                             </option>
-                        ))}
-                
+                        ))
+                    )}
                 </select>
             </div>
         </div>
