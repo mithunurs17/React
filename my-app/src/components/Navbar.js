@@ -19,10 +19,10 @@ export default function Navbar(props) {
           <a class="nav-link" href="#">{props.aboutText}</a>
         </li>
       </ul>
-      <form class="d-flex" role="search">
+      {/* <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
         <button type="button" class="btn btn-primary">Search</button>
-      </form>
+      </form> */}
     </div>
   </div>
 </nav>
