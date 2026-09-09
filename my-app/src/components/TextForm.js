@@ -15,7 +15,7 @@ export default function TextForm(props) {
         console.log("On Change");
         setText(event.target.value);
     }
-    const [text, setText] = useState('Enter text here');
+    const [text, setText] = useState('');
     // setText("new Text");
   return (
     <>
@@ -25,7 +25,7 @@ export default function TextForm(props) {
             <textarea className="form-control" value={text} onChange={handleOnChange} id='myBox' rows='8'>
             </textarea>
         </div>
-        <button className="btn btn-primary mx-2" onClick={handleUpClick}>Convert to Uppercase</button>
+        <button type="button" class="btn btn-danger mx-2" onClick={handleUpClick}>Conver to Uppercase</button>
         <button className="btn btn-primary" onClick={handleLowClick}>Convert to Lowercase</button>
     </div>
     <div className='container my-3'>
